@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chef Seyami · Restaurant turc à Nador</title>
+<meta name="description" content="Chef Seyami, Turkish café restaurant à Nador : kebabs au charbon (Adana, İskender, Beyti), brochettes, mezzes, baklava et café turc. Et un fal pour lire votre marc de café. 0762 06 95 85.">
+<meta name="theme-color" content="#0b3326">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%230b3326'/%3E%3Ccircle cx='32' cy='32' r='20' fill='none' stroke='%23e2a922' stroke-width='3'/%3E%3Ccircle cx='32' cy='32' r='11' fill='%233b2416'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Eczar:wght@500..800&family=Nata+Sans:wght@300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<canvas class="foam" id="foam" aria-hidden="true"></canvas>
+
+<header class="nav" id="nav">
+  <a class="brand" href="#top"><img src="assets/img/logo.jpg" alt="" width="40" height="40"><span>Chef Seyami</span></a>
+  <nav class="nav__links" aria-label="Principal">
+    <a href="#mangal" data-i18n="nav.grill">Le mangal</a>
+    <a href="#fal" data-i18n="nav.fal">Votre fal</a>
+    <a href="#lieu" data-i18n="nav.place">Le lieu</a>
+    <a href="#venir" data-i18n="nav.visit">Venir</a>
+  </nav>
+  <div class="lang" role="group" aria-label="Langue">
+    <button type="button" data-lang="fr" aria-pressed="true">FR</button>
+    <button type="button" data-lang="es" aria-pressed="false">ES</button>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="hero__copy">
+      <p class="hero__ar" lang="ar" dir="rtl">أهلا بك في عالم النكهات التركية</p>
+      <h1 class="hero__title">Chef<br>Seyami</h1>
+      <p class="hero__sub" data-i18n="hero.sub">Cuisine turque 100 %, viandes grillées au charbon et épices authentiques, au cœur de Nador.</p>
+      <div class="hero__cta">
+        <a class="btn btn--mustard" href="#fal" data-i18n="cta.fal">Lire mon fal</a>
+        <a class="btn btn--line" href="#mangal" data-i18n="cta.menu">La carte</a>
+      </div>
+      <div class="dialinfo" aria-live="polite">
+        <p class="dialinfo__tr" id="dialTr">Kuzu şiş</p>
+        <p class="dialinfo__fr" id="dialFr"></p>
+        <div class="dial__ctrl">
+          <button type="button" id="dialPrev" aria-label="Plat précédent"><i class="ph ph-arrow-left"></i></button>
+          <button type="button" id="dialNext" aria-label="Plat suivant"><i class="ph ph-arrow-right"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="dial" id="dial">
+      <div class="dial__wheel" id="wheel"></div>
+    </div>
+  </section>
+
+  <section class="mangal" id="mangal">
+    <div class="mangal__head">
+      <h2 class="h2" data-i18n="grill.title">Du mangal à la table</h2>
+      <p class="lead" data-i18n="grill.lead">Les kebabs sortent du charbon de bois, servis avec boulgour, salade et piments grillés.</p>
+    </div>
+    <ul class="kebabs" id="kebabs"></ul>
+    <div class="mezze">
+      <h3 class="mezze__h" data-i18n="mezze.title">Mezzes, douceurs et boissons</h3>
+      <ul class="mezze__row" id="mezze"></ul>
+    </div>
+  </section>
+
+  <section class="fal" id="fal">
+    <div class="fal__txt">
+      <h2 class="h2" data-i18n="fal.title">Kahve falı : lisez votre marc</h2>
+      <p class="lead" data-i18n="fal.lead">En Turquie, après le café, on fait un vœu, on retourne la tasse sur la soucoupe et on attend qu’elle refroidisse. Puis on lit les formes du marc. Le nôtre vous dit quoi commander.</p>
+      <ol class="fal__steps">
+        <li data-i18n="fal.s1">Faites un vœu en silence.</li>
+        <li data-i18n="fal.s2">Retournez la tasse.</li>
+        <li data-i18n="fal.s3">Laissez le marc parler.</li>
+      </ol>
+      <button class="btn btn--mustard" id="flip" type="button"><i class="ph ph-arrows-clockwise"></i><span data-i18n="fal.btn">Retourner la tasse</span></button>
+      <p class="fal__note" data-i18n="fal.note">Pour le plaisir, évidemment.</p>
+    </div>
+    <div class="fal__stage">
+      <div class="saucer">
+        <div class="cup" id="cup">
+          <div class="cup__face cup__face--front"><span class="cup__coffee"></span><span class="cup__foam"></span></div>
+          <div class="cup__face cup__face--back"><canvas id="grounds" width="520" height="520"></canvas><i class="cup__sign ph-fill" id="sign"></i></div>
+        </div>
+      </div>
+      <p class="fal__count" id="count" aria-live="polite"></p>
+      <div class="reading" id="reading" aria-live="polite">
+        <img id="readImg" src="assets/img/k-adana.jpg" alt="" width="640" height="640">
+        <div>
+          <p class="reading__sign" id="readSign"></p>
+          <p class="reading__dish" id="readDish"></p>
+          <a class="reading__cta" href="https://wa.me/212762069585" target="_blank" rel="noopener" id="readCta"><span data-i18n="fal.order">Réserver une table</span><i class="ph ph-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="place" id="lieu">
+    <figure class="place__a"><img src="assets/img/salle.jpg" alt="Salle aux murs moutarde et banquettes vertes" loading="lazy" width="1200" height="1600"></figure>
+    <figure class="place__b"><img src="assets/img/table.jpg" alt="Table servie : grillades, boulgour et salade" loading="lazy" width="1551" height="1600"></figure>
+    <div class="place__txt">
+      <h2 class="h2" data-i18n="place.title">Vert bouteille, moutarde et charbon de bois.</h2>
+      <div class="quotes" id="quotes"></div>
+    </div>
+  </section>
+
+  <section class="visit" id="venir">
+    <h2 class="visit__big" data-i18n="visit.title">Afiyet olsun.</h2>
+    <p class="visit__sub" data-i18n="visit.sub">« Bon appétit », en turc. On vous attend à Nador, à deux pas du boulevard Grand Rif.</p>
+    <div class="visit__cols">
+      <div><p class="visit__lbl" data-i18n="visit.call">Réservations</p><p><a href="tel:+212762069585">0762 06 95 85</a></p></div>
+      <div><p class="visit__lbl">Instagram</p><p><a href="https://www.instagram.com/chef__seyami/" target="_blank" rel="noopener">@chef__seyami</a><br><a href="https://www.instagram.com/chef_seyamiii/" target="_blank" rel="noopener">@chef_seyamiii</a></p></div>
+      <div><p class="visit__lbl" data-i18n="visit.where">Adresse</p><p><a href="https://www.google.com/maps/search/?api=1&query=CHEF+SEYAMI+Nador" target="_blank" rel="noopener">532Q+RHG, Nador</a></p></div>
+    </div>
+    <a class="btn btn--mustard" href="https://wa.me/212762069585" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo"></i><span data-i18n="visit.wa">Écrire sur WhatsApp</span></a>
+  </section>
+
+</main>
+
+<footer class="foot"><p>Chef Seyami · Turkish Café Restaurant · Nador</p></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
